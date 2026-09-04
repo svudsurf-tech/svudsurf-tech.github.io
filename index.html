@@ -45,17 +45,23 @@
         }
         .nav-links a:hover { color: var(--accent-pink); }
 
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: radial-gradient(circle at center, #1a1a2e 0%, var(--bg-color) 70%);
-            padding: 0 1rem;
-        }
+            <section class="hero">
+        <h1>Vracken</h1>
+        <p class="subtitle">A shadowed journey through a pixelated dark world. Currently in development. Follow the progress.</p>
+        
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
+            <!-- Primary CTA: Join Discord/Newsletter -->
+            <a href="#" class="cta-button">Join Dev Community</a>
+            
+            <!-- Secondary CTA: View Code/Assets -->
+            <a href="https://github.com/svudsurf-tech/vracken" target="_blank" 
+               style="padding: 1rem 2.5rem; text-decoration: none; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; border: 2px solid var(--text-color); color: var(--text-color); transition: all 0.3s ease;">
+                View on GitHub
+            </a>
+        </div>
+        
+        <p style="margin-top: 2rem; font-size: 0.8rem; opacity: 0.5;">Target Release: Q4 2026</p>
+    </section>
 
         h1 {
             font-size: clamp(3rem, 8vw, 6rem);
