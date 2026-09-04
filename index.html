@@ -3,171 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vracken | A Dark Fantasy RPG</title>
+    <title>Vracken | Dark Fantasy RPG</title>
     <style>
+        /* --- YOUR PALETTE (Edit these 4 lines to change everything) --- */
         :root {
-            --bg-color: #0a0a12;
-            --text-color: #e0e0e0;
-            --accent-cyan: #00ffff;
-            --accent-pink: #ff0055;
-            --card-bg: #161622;
+            --bg: #0a0a12;       /* Deep Void Black */
+            --text: #e0e0e0;     /* Soft White */
+            --cyan: #00ffff;     /* Kris Eye Glow */
+            --pink: #ff0055;     /* Scarf Accent */
         }
 
+        /* --- RESET & BASE --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Courier New', Courier, monospace; /* Retro/Tech vibe */
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Courier New', monospace; /* Retro Terminal Vibe */
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* Navigation */
-        nav {
+        /* --- LAYOUT --- */
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        
+        /* --- HERO SECTION --- */
+        header {
+            min-height: 80vh;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            padding: 2rem 5%;
-            position: absolute;
-            width: 100%;
-            top: 0;
-            z-index: 10;
+            text-align: center;
+            position: relative;
         }
-
-        .logo { font-size: 1.5rem; font-weight: bold; letter-spacing: 2px; color: var(--accent-cyan); text-transform: uppercase; }
-        
-        .nav-links a {
-            color: var(--text-color);
-            text-decoration: none;
-            margin-left: 2rem;
-            font-size: 0.9rem;
-            transition: color 0.3s;
-        }
-        .nav-links a:hover { color: var(--accent-pink); }
-
-            <section class="hero">
-        <h1>Vracken</h1>
-        <p class="subtitle">A shadowed journey through a pixelated dark world. Currently in development. Follow the progress.</p>
-        
-        <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
-            <!-- Primary CTA: Join Discord/Newsletter -->
-            <a href="#" class="cta-button">Join Dev Community</a>
-            
-            <!-- Secondary CTA: View Code/Assets -->
-            <a href="https://github.com/svudsurf-tech/vracken" target="_blank" 
-               style="padding: 1rem 2.5rem; text-decoration: none; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; border: 2px solid var(--text-color); color: var(--text-color); transition: all 0.3s ease;">
-                View on GitHub
-            </a>
-        </div>
-        
-        <p style="margin-top: 2rem; font-size: 0.8rem; opacity: 0.5;">Target Release: Q4 2026</p>
-    </section>
 
         h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
+            font-size: clamp(3rem, 10vw, 6rem);
             text-transform: uppercase;
             letter-spacing: -2px;
+            color: var(--cyan);
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
             margin-bottom: 1rem;
-            text-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
         }
 
-        .subtitle {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin-bottom: 2.5rem;
-            opacity: 0.8;
-        }
+        .tagline { font-size: 1.2rem; opacity: 0.8; max-width: 600px; margin-bottom: 2rem; }
 
-        .cta-button {
-            background-color: var(--accent-cyan);
-            color: var(--bg-color);
-            padding: 1rem 2.5rem;
+        /* --- BUTTONS --- */
+        .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+        
+        .btn {
+            padding: 1rem 2rem;
             text-decoration: none;
             font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            border: 2px solid var(--accent-cyan);
-            transition: all 0.3s ease;
+            border: 2px solid var(--cyan);
+            transition: all 0.2s ease;
+            background: transparent;
+            color: var(--cyan);
         }
 
-        .cta-button:hover {
-            background-color: transparent;
-            color: var(--accent-cyan);
-            box-shadow: 0 0 15px var(--accent-cyan);
+        .btn:hover {
+            background: var(--cyan);
+            color: var(--bg);
+            box-shadow: 0 0 15px var(--cyan);
         }
 
-        /* Features / Showcase */
-        .showcase {
-            padding: 5rem 5%;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        .btn-secondary { border-color: var(--text); color: var(--text); }
+        .btn-secondary:hover { background: var(--text); color: var(--bg); box-shadow: 0 0 15px var(--text); }
 
-        .card {
-            background: var(--card-bg);
-            padding: 2rem;
-            border-left: 3px solid var(--accent-pink);
-            transition: transform 0.3s;
-        }
+        /* --- DEVLOG / UPDATES --- */
+        .devlog { margin-top: 4rem; border-top: 1px solid #222; padding-top: 2rem; }
+        .entry { margin-bottom: 2rem; padding-left: 1rem; border-left: 2px solid var(--pink); }
+        .date { font-size: 0.8rem; color: var(--pink); margin-bottom: 0.5rem; display: block; }
 
-        .card:hover { transform: translateY(-5px); }
-        .card h3 { color: var(--accent-cyan); margin-bottom: 1rem; font-size: 1.4rem; }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 3rem;
-            border-top: 1px solid #222;
-            font-size: 0.8rem;
-            opacity: 0.6;
-        }
-
-        /* Mobile Tweaks */
-        @media (max-width: 768px) {
-            nav { flex-direction: column; gap: 1rem; position: relative; }
-            .nav-links a { margin: 0 1rem; }
-        }
+        /* --- FOOTER --- */
+        footer { text-align: center; padding: 4rem 0; font-size: 0.8rem; opacity: 0.5; }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo">VRACKEN</div>
-        <div class="nav-links">
-            <a href="#about">About</a>
-            <a href="#features">Features</a>
-            <a href="https://github.com/yourusername/vracken" target="_blank">GitHub</a>
-        </div>
-    </nav>
+    <div class="container">
+        <header>
+            <!-- REPLACE THIS WITH YOUR CHARACTER SPRITE IMG TAG IF YOU WANT -->
+            <!-- <img src="assets/char.png" style="height: 150px; margin-bottom: 2rem;"> -->
+            
+            <h1>Vracken</h1>
+            <p class="tagline">A shadowed journey through a pixelated dark world. <br>Currently in active development.</p>
+            
+            <div class="btn-group">
+                <a href="#" class="btn">Join Discord</a>
+                <a href="https://github.com/svudsurf-tech/vracken" class="btn btn-secondary">View Source</a>
+            </div>
+        </header>
 
-    <section class="hero">
-        <h1>Vracken</h1>
-        <p class="subtitle">A shadowed journey through a pixelated dark world. Master the void, wield the light, and uncover the secrets of the abyss.</p>
-        <a href="#" class="cta-button">Wishlist on Steam</a>
-    </section>
+        <section class="devlog">
+            <h2 style="margin-bottom: 2rem; color: var(--cyan);">// DEVELOPMENT LOG</h2>
+            
+            <div class="entry">
+                <span class="date">SEP 04, 2026</span>
+                <h3>Day 4: Character Design & PureRef Setup</h3>
+                <p>Established the main character silhouette inspired by Dark World aesthetics. Set up PureRef for efficient workflow. Started blocking out the head sprite in Aseprite (32x48px).</p>
+            </div>
 
-    <section id="features" class="showcase">
-        <div class="card">
-            <h3>Retro Aesthetics</h3>
-            <p>Hand-crafted pixel art inspired by the golden era of RPGs, featuring a unique neon-noir color palette.</p>
-        </div>
-        <div class="card">
-            <h3>Fluid Combat</h3>
-            <p>Fast-paced, frame-perfect combat system. No idle animations—just pure action and reaction.</p>
-        </div>
-        <div class="card">
-            <h3>Mystery & Lore</h3>
-            <p>Uncover the truth behind the shadowed protagonist. Every sprite tells a story.</p>
-        </div>
-    </section>
+            <div class="entry">
+                <span class="date">SEP 03, 2026</span>
+                <h3>Day 3: Project Initialization</h3>
+                <p>Repo created. Defold engine configured. Lua scripting environment ready. Target deadline: 12 days.</p>
+            </div>
+        </section>
 
-    <footer>
-        <p>&copy; 2026 Vracken Project. All Rights Reserved.</p>
-        <p>Built with Defold & Lua</p>
-    </footer>
+        <footer>
+            <p>&copy; 2026 Vracken Project. All Rights Reserved.</p>
+            <p>Built with raw HTML/CSS. Hosted on GitHub Pages.</p>
+        </footer>
+    </div>
 
 </body>
 </html>
