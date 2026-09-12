@@ -1,122 +1,201 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vracken | Dark Fantasy RPG</title>
+--- index.html (原始)
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>coder-app-name</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <style>
-        /* --- YOUR PALETTE (Edit these 4 lines to change everything) --- */
-        :root {
-            --bg: #0a0a12;       /* Deep Void Black */
-            --text: #e0e0e0;     /* Soft White */
-            --cyan: #00ffff;     /* Kris Eye Glow */
-            --pink: #ff0055;     /* Scarf Accent */
-        }
-
-        /* --- RESET & BASE --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: 'Courier New', monospace; /* Retro Terminal Vibe */
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* --- LAYOUT --- */
-        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
-        
-        /* --- HERO SECTION --- */
-        header {
-            min-height: 80vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: relative;
-        }
-
-        h1 {
-            font-size: clamp(3rem, 10vw, 6rem);
-            text-transform: uppercase;
-            letter-spacing: -2px;
-            color: var(--cyan);
-            text-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
-            margin-bottom: 1rem;
-        }
-
-        .tagline { font-size: 1.2rem; opacity: 0.8; max-width: 600px; margin-bottom: 2rem; }
-
-        /* --- BUTTONS --- */
-        .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
-        
-        .btn {
-            padding: 1rem 2rem;
-            text-decoration: none;
-            font-weight: bold;
-            text-transform: uppercase;
-            border: 2px solid var(--cyan);
-            transition: all 0.2s ease;
-            background: transparent;
-            color: var(--cyan);
-        }
-
-        .btn:hover {
-            background: var(--cyan);
-            color: var(--bg);
-            box-shadow: 0 0 15px var(--cyan);
-        }
-
-        .btn-secondary { border-color: var(--text); color: var(--text); }
-        .btn-secondary:hover { background: var(--text); color: var(--bg); box-shadow: 0 0 15px var(--text); }
-
-        /* --- DEVLOG / UPDATES --- */
-        .devlog { margin-top: 4rem; border-top: 1px solid #222; padding-top: 2rem; }
-        .entry { margin-bottom: 2rem; padding-left: 1rem; border-left: 2px solid var(--pink); }
-        .date { font-size: 0.8rem; color: var(--pink); margin-bottom: 0.5rem; display: block; }
-
-        /* --- FOOTER --- */
-        footer { text-align: center; padding: 4rem 0; font-size: 0.8rem; opacity: 0.5; }
+      /* 内联样式确保主题色立即生效，避免闪烁 */
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+      }
+      html.light,
+      html.light body {
+        background-color: #ffffff !important;
+        color: #000000;
+      }
+      html.dark,
+      html.dark body {
+        background-color: #1a1a1a !important;
+        color: #ffffff;
+      }
     </style>
-</head>
-<body>
+    <script>
+      // 在 React 加载前立即设置主题，避免闪烁
+      (function () {
+        const isInIframe = window.self !== window.top;
 
-    <div class="container">
-        <header>
-            <!-- REPLACE THIS WITH YOUR CHARACTER SPRITE IMG TAG IF YOU WANT -->
-            <!-- <img src="assets/char.png" style="height: 150px; margin-bottom: 2rem;"> -->
-            
-            <h1>Vracken</h1>
-            <p class="tagline">A shadowed journey through a pixelated dark world. <br>Currently in active development.</p>
-            
-            <div class="btn-group">
-                <a href="#" class="btn">Join Discord</a>
-                <a href="https://github.com/svudsurf-tech/vracken" class="btn btn-secondary">View Source</a>
-            </div>
-        </header>
+        function applyThemeToDOM(theme) {
+          document.documentElement.classList.remove("light", "dark");
+          document.documentElement.classList.add(theme);
+          document.documentElement.setAttribute("data-theme", theme);
+        }
 
-        <section class="devlog">
-            <h2 style="margin-bottom: 2rem; color: var(--cyan);">// DEVELOPMENT LOG</h2>
-            
-            <div class="entry">
-                <span class="date">SEP 04, 2026</span>
-                <h3>Day 4: Character Design & PureRef Setup</h3>
-                <p>Established the main character silhouette inspired by Dark World aesthetics. Set up PureRef for efficient workflow. Started blocking out the head sprite in Aseprite (32x48px).</p>
-            </div>
+        if (isInIframe) {
+          // 监听父窗口主动推送的主题消息
+          window.addEventListener("message", function (event) {
+            if (event.data && typeof event.data.theme === "string") {
+              const theme = event.data.theme;
+              if (theme === "light" || theme === "dark") {
+                applyThemeToDOM(theme);
+              }
+            }
+          });
+        } else {
+          // 非 iframe 环境，使用默认 light 主题
+          applyThemeToDOM("light");
+        }
+      })();
+    </script>
+      <script>
+      (function () {
+        if (window.self === window.top) return;
+        var reported = {};
+        window.addEventListener("error", function (event) {
+          // 资源加载失败的 error 事件没有 message，此处仅上报 JS 运行时错误
+          if (!event || !event.message) return;
+          var key =
+            event.message + "|" + (event.filename || "") + "|" + (event.lineno || 0);
+          if (reported[key]) return; // 相同错误只上报一次，避免渲染循环刷屏
+          reported[key] = true;
+          try {
+            window.parent.postMessage(
+              {
+                type: "sandbox-runtime-error",
+                payload: {
+                  message: String(event.message).slice(0, 500),
+                  filename: event.filename || "",
+                  lineno: event.lineno || 0,
+                  colno: event.colno || 0,
+                  stack:
+                    event.error && event.error.stack
+                      ? String(event.error.stack).slice(0, 2000)
+                      : ""
+                }
+              },
+              "*"
+            );
+          } catch (e) {
+            /* 上报失败不影响页面运行 */
+          }
+        });
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
 
-            <div class="entry">
-                <span class="date">SEP 03, 2026</span>
-                <h3>Day 3: Project Initialization</h3>
-                <p>Repo created. Defold engine configured. Lua scripting environment ready. Target deadline: 12 days.</p>
-            </div>
-        </section>
 
-        <footer>
-            <p>&copy; 2026 Vracken Project. All Rights Reserved.</p>
-            <p>Built with raw HTML/CSS. Hosted on GitHub Pages.</p>
-        </footer>
-    </div>
++++ index.html (修改后)
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vracken — A Metroidvania Adventure</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* 内联样式确保主题色立即生效，避免闪烁 */
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+      }
+      html.light,
+      html.light body {
+        background-color: #ffffff !important;
+        color: #000000;
+      }
+      html.dark,
+      html.dark body {
+        background-color: #1a1a1a !important;
+        color: #ffffff;
+      }
+    </style>
+    <script>
+      // 在 React 加载前立即设置主题，避免闪烁
+      (function () {
+        const isInIframe = window.self !== window.top;
 
-</body>
+        function applyThemeToDOM(theme) {
+          document.documentElement.classList.remove("light", "dark");
+          document.documentElement.classList.add(theme);
+          document.documentElement.setAttribute("data-theme", theme);
+        }
+
+        if (isInIframe) {
+          // 监听父窗口主动推送的主题消息
+          window.addEventListener("message", function (event) {
+            if (event.data && typeof event.data.theme === "string") {
+              const theme = event.data.theme;
+              if (theme === "light" || theme === "dark") {
+                applyThemeToDOM(theme);
+              }
+            }
+          });
+        } else {
+          // 非 iframe 环境，使用默认 light 主题
+          applyThemeToDOM("light");
+        }
+      })();
+    </script>
+      <script>
+      (function () {
+        if (window.self === window.top) return;
+        var reported = {};
+        window.addEventListener("error", function (event) {
+          // 资源加载失败的 error 事件没有 message，此处仅上报 JS 运行时错误
+          if (!event || !event.message) return;
+          var key =
+            event.message + "|" + (event.filename || "") + "|" + (event.lineno || 0);
+          if (reported[key]) return; // 相同错误只上报一次，避免渲染循环刷屏
+          reported[key] = true;
+          try {
+            window.parent.postMessage(
+              {
+                type: "sandbox-runtime-error",
+                payload: {
+                  message: String(event.message).slice(0, 500),
+                  filename: event.filename || "",
+                  lineno: event.lineno || 0,
+                  colno: event.colno || 0,
+                  stack:
+                    event.error && event.error.stack
+                      ? String(event.error.stack).slice(0, 2000)
+                      : ""
+                }
+              },
+              "*"
+            );
+          } catch (e) {
+            /* 上报失败不影响页面运行 */
+          }
+        });
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
